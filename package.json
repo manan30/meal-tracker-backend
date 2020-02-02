@@ -1,0 +1,23 @@
+{
+  "name": "meal-tracker-backend",
+  "version": "0.0.1",
+  "description": "Node backend for the meal tracker app ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/manan30/meal-tracker-backend.git"
+  },
+  "keywords": [
+    "Node",
+    "MongoDB"
+  ],
+  "author": "Manan Joshi <mananjoshi1995@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/manan30/meal-tracker-backend/issues"
+  },
+  "homepage": "https://github.com/manan30/meal-tracker-backend#readme"
+}
