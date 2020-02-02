@@ -1,0 +1,1 @@
+const shoppingListSchema = new Schema({});

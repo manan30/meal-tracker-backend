@@ -19,5 +19,10 @@
   "bugs": {
     "url": "https://github.com/manan30/meal-tracker-backend/issues"
   },
-  "homepage": "https://github.com/manan30/meal-tracker-backend#readme"
+  "homepage": "https://github.com/manan30/meal-tracker-backend#readme",
+  "dependencies": {
+    "cors": "2.8.5",
+    "express": "4.17.1",
+    "mongoose": "5.8.11"
+  }
 }
