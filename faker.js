@@ -1,14 +1,14 @@
 const faker = require('faker');
 
 const generateRecipes = () => {
-  const data = { recipes: [] };
+  const recipes = [];
 
   for (let i = 0; i < 10; i += 1) {
     const recipeName = faker.commerce.productName();
     const minutes = faker.random.number(60);
     const ingredients = faker.random.number(15);
     const image = faker.image.food(440, 220);
-    data.recipes.push({
+    recipes.push({
       id: i,
       name: recipeName,
       mins: minutes,
@@ -17,20 +17,20 @@ const generateRecipes = () => {
     });
   }
 
-  return data;
+  return recipes;
 };
 
 const generateCategories = () => {
-  const data = { categories: [] };
+  const categories = [];
 
   for (let i = 0; i < 10; i += 1) {
     const image = faker.image.food(155, 105);
     const categoryName = faker.commerce.department();
 
-    data.categories.push({ id: i, name: categoryName, image });
+    categories.push({ id: i, name: categoryName, image });
   }
 
-  return data;
+  return categories;
 };
 
 const generateImages = () => {
@@ -52,8 +52,13 @@ const generateRecipeData = () => {
   const steps = new Array(8)
     .fill(0)
     .map(() => faker.lorem.sentences(Math.floor(Math.random() * (3 - 1)) + 1));
+  const nutritionalInfo = new Array(10).fill(0).map(() => {
+    const number = faker.random.number();
+    const text = faker.random.word();
+    return `${number} ${text}`;
+  });
 
-  return { name, images, ingredients, steps };
+  return { name, images, ingredients, steps, nutritionalInfo };
 };
 
 module.exports = () => {
