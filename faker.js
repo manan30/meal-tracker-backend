@@ -61,13 +61,63 @@ const generateRecipeData = () => {
   return { name, images, ingredients, steps, nutritionalInfo };
 };
 
-module.exports = () => {
-  const recipes = generateRecipes();
-  const categories = generateCategories();
-  const images = generateImages();
-  const recipe = generateRecipeData();
+const generateTopRecipes = () => {
+  const recipe = () => {
+    return {
+      id: faker.random.number(),
+      name: faker.random
+        .words(3)
+        .split(' ')
+        .join(' ')
+    };
+  };
 
-  const data = { recipes, categories, images, recipe };
+  const topRecipes = new Array(5).fill(0).map(recipe);
+
+  return topRecipes;
+};
+
+const generateFeedRecipes = () => {
+  const user = () => {
+    return {
+      id: faker.random.number(),
+      profilePicture: faker.image.avatar(),
+      username: `${faker.name.firstName()} ${faker.name.lastName()}`,
+      lastPosted: faker.random.number(12)
+    };
+  };
+
+  const recipe = () => {
+    return {
+      id: faker.random.number(),
+      recipeImage: faker.random.image(),
+      recipeName: faker.commerce.productName(),
+      recipeDesc: faker.lorem.lines(2),
+      likes: faker.random.number(),
+      comments: faker.random.number()
+    };
+  };
+
+  const recipes = new Array(15).fill(0).map(() => {
+    return { user: user(), recipe: recipe() };
+  });
+
+  return recipes;
+};
+
+module.exports = () => {
+  // const recipes = generateRecipes();
+  // const categories = generateCategories();
+  // const images = generateImages();
+  // const recipe = generateRecipeData();
+
+  const topRecipes = generateTopRecipes();
+  const feedRecipes = generateFeedRecipes();
+
+  const feed = { topRecipes: topRecipes, feedRecipes: feedRecipes };
+  // const data = { recipes, categories, images, recipe };
+
+  const data = { feed };
 
   return data;
 };
