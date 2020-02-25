@@ -51,7 +51,7 @@ jobs:
 
       - name: Deploy
         run: |
-          ssh -i $HOME/.ssh/id_rsa ${USER}@${HOST}:${TARGET}
+          ssh -i $HOME/.ssh/id_rsa ${USER}@${HOST}
           ls -al
         env:
           USER: ${{ secrets.USER }}
