@@ -50,7 +50,9 @@ jobs:
           HOST: ${{ secrets.HOST }}
 
       - name: Deploy
-        run: ssh -i $HOME/.ssh/id_rsa ${USER}@${HOST}:${TARGET}
+        run: |
+          ssh -i $HOME/.ssh/id_rsa ${USER}@${HOST}:${TARGET}
+          ls -al
         env:
           USER: ${{ secrets.USER }}
           HOST: ${{ secrets.HOST }}
