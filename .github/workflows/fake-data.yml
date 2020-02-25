@@ -1,0 +1,35 @@
+name: Build and Deploy Fake Data
+
+on:
+  push:
+    branches:
+      - fake-data
+
+jobs:
+  build-and-deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Setup keys
+        run: |
+          mkdir -p $HOME/.ssh
+          echo "${SSH_PRIVATE_KEY}" >> $HOME/.ssh/id_rsa
+          chmod 600 $HOME/.ssh/id_rsa
+          ssh-keyscan -t rsa ${HOST} >> $HOME/.ssh/known_hosts
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
+          HOST: ${{ secrets.HOST }}
+
+      - name: Deploy
+        run: |
+          ssh -i $HOME/.ssh/id_rsa ${USER}@${HOST} < scripts/pull-run.sh fake
+          # ls -al
+        env:
+          USER: ${{ secrets.USER }}
+          HOST: ${{ secrets.HOST }}
+          TARGET: ${{ secrets.TARGET }}
+      # - continue-on-error: false
