@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+  app:
+    container_name: sculptor_backend
+    restart: always
+    build: .
+    ports:
+      - '1741:1741'
+    depends_on:
+      - mongo
+    links:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - '27017:27017'
+    volumes:
+      - data-volume:/data/db
+volumes:
+  data-volume:
