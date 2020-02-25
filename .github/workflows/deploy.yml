@@ -1,0 +1,58 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+      - fake-data
+
+jobs:
+  build-and-deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      # - name: Node setup
+      #   uses: actions/setup-node@v1
+      #   with:
+      #     node-version: 12.x
+
+      # - name: Cache node modules
+      #   uses: actions/cache@v1
+      #   env:
+      #     cache-name: cache-node-modules
+      #   with:
+      #     path: ~/.npm
+      #     key: npm-${{ hashFiles('package-lock.json') }}
+      #     restore-keys: |
+      #       npm-
+
+      # - name: Install dependencies
+      #   run: npm install
+
+      # - name: Build
+      #   run: npm run build --if-present
+      #   env:
+      #     CI: false
+
+      - name: Setup keys
+        run: |
+          mkdir -p $HOME/.ssh
+          echo "${SSH_PRIVATE_KEY}" >> $HOME/.ssh/id_rsa
+          chmod 600 $HOME/.ssh/id_rsa
+          ssh-keyscan -t rsa ${HOST} >> $HOME/.ssh/known_hosts
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
+          HOST: ${{ secrets.HOST }}
+
+      - name: Deploy
+        run: ssh -i $HOME/.ssh/id_rsa ${USER}@${HOST}:${TARGET}
+        env:
+          USER: ${{ secrets.USER }}
+          HOST: ${{ secrets.HOST }}
+          TARGET: ${{ secrets.TARGET }}
+      # - continue-on-error: false
