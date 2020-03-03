@@ -4,7 +4,7 @@
   "description": "Node backend for the meal tracker app ",
   "main": "index.js",
   "scripts": {
-    "start": "npx json-server --host sculptor.mananjoshi.me --port 1741 faker.js",
+    "start": "npx json-server --host 129.21.74.185 --port 1741 faker.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,8 +25,8 @@
     "cors": "2.8.5",
     "express": "4.17.1",
     "faker": "4.1.0",
-    "json-server": "0.15.1",
-    "mongoose": "5.8.11"
+    "json-server": "0.16.1",
+    "mongoose": "5.9.2"
   },
   "devDependencies": {
     "eslint": "6.8.0",

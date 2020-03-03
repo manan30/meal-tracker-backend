@@ -114,7 +114,7 @@ module.exports = () => {
   const topRecipes = generateTopRecipes();
   const feedRecipes = generateFeedRecipes();
 
-  const feed = { topRecipes: topRecipes, feedRecipes: feedRecipes };
+  const feed = { topRecipes, feedRecipes };
   // const data = { recipes, categories, images, recipe };
 
   const data = { feed };
