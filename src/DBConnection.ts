@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const { DB_URL, DB_PORT, DATABASE } = require('./utils/Constants');
+import mongoose from 'mongoose';
+import { DATABASE, DB_PORT, DB_URL } from './utils/Constants';
 
-module.exports = async () => {
+export default async function connection(): Promise<any> {
   try {
     await mongoose.connect(`mongodb://${DB_URL}:${DB_PORT}/${DATABASE}`, {
       useNewUrlParser: true,
@@ -14,4 +14,4 @@ module.exports = async () => {
   } catch (e) {
     console.log('Database connection failed.', e);
   }
-};
+}

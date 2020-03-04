@@ -1,8 +1,15 @@
-import App from './app';
 import cors from 'cors';
+import App from './app';
+// import DBConnection from './DBConnection';
+import UserRouter from './routes/User';
+import { SERVER_PORT } from './utils/Constants';
 
-const port = 2130;
+const app = new App({
+  port: SERVER_PORT,
+  middleWares: [cors()],
+  routes: [{ tag: 'user', router: UserRouter }]
+});
 
-const app = new App({ port, middleWares: [cors()], controllers: [] });
+// DBConnection();
 
 app.listen();

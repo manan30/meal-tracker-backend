@@ -1,13 +1,19 @@
-import express, { Application } from 'express';
+import express, { Application, Router } from 'express';
+
+export type RouteType = {
+  tag: string;
+  router: Router;
+};
 
 class App {
   private app: Application;
   private port: number;
 
-  constructor(init: { port: number; middleWares: any; controllers: any }) {
+  constructor(init: { port: number; middleWares: any; routes: RouteType[] }) {
     this.app = express();
     this.port = init.port;
     this.middleWares(init.middleWares);
+    this.routes(init.routes);
 
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
@@ -18,6 +24,12 @@ class App {
   }) {
     middleWares.forEach(middleware => {
       this.app.use(middleware);
+    });
+  }
+
+  private routes(routes: RouteType[]): void {
+    routes.forEach(route => {
+      this.app.use(route.tag, route.router);
     });
   }
 
