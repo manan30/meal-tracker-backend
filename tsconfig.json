@@ -2,9 +2,11 @@
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
+    "moduleResolution": "node",
     "outDir": "./dist",
     "sourceRoot": "./src",
     "inlineSourceMap": true,
+    "sourceMap": true,
     "strict": true,
     "noImplicitAny": true,
     "noUnusedLocals": true,
