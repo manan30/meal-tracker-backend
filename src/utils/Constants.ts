@@ -1,4 +1,4 @@
-const SERVER_PORT: number = parseInt(process.env.PORT || '1741', 10);
+const SERVER_PORT: number = parseInt(process.env.PORT || '2130', 10);
 const DB_URL: string = 'mongo';
 const DB_PORT: number = 27017;
 const DATABASE: string = 'sculptor';

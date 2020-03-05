@@ -6,14 +6,11 @@
   "configurations": [
     {
       "type": "node",
-      "disableOptimisticBPs": true,
-      "cwd": "${workspaceFolder}",
-      "protocol": "inspector",
-      "sourceMaps": true,
       "request": "launch",
-      "name": "Launch Program",
+      "name": "Debug app",
       "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}/src/server.ts",
+      "outFiles": ["${workspaceFolder}/dist/**/*.js"],
       "preLaunchTask": "node build"
     }
   ]
