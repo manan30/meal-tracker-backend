@@ -1,6 +1,6 @@
 import cors from 'cors';
 import App from './app';
-// import DBConnection from './DBConnection';
+import DBConnection from './DBConnection';
 import UserRouter from './routes/User';
 import { SERVER_PORT } from './utils/Constants';
 
@@ -10,6 +10,6 @@ const app = new App({
   routes: [{ tag: 'user', router: UserRouter }]
 });
 
-// DBConnection();
+DBConnection();
 
 app.listen();
