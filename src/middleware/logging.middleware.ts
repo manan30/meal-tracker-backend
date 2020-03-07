@@ -9,6 +9,6 @@ export function Logger(req: Request, res: Response, next: NextFunction): void {
   const log = `${chalk.yellowBright(`[${formattedDate}]`)} ${chalk.blueBright(
     `${method}:${url}`
   )}`;
-  process.stdout.write(log);
+  console.log(log);
   next();
 }
