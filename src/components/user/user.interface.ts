@@ -14,9 +14,9 @@ export interface User extends Document {
   lastName: string;
   email: string;
   password: string;
-  recipes?: Recipe[];
-  followers?: number;
-  following?: number;
-  saved?: number;
-  likes?: number;
+  recipes: Recipe[];
+  followers: number;
+  following: number;
+  saved: number;
+  likes: number;
 }

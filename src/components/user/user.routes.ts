@@ -12,12 +12,16 @@ class UserRoutes {
     ): Promise<void> {
       try {
         const body: User = req.body;
-        const { status, message } = await UserController.createUser(body);
+        const {
+          status,
+          message,
+          specificData
+        } = await UserController.createUser(body);
 
-        if (status) res.status(200).json({ message });
-        else res.status(400).json({ message });
+        if (status) res.status(200).json({ data: specificData || {} });
+        else res.status(400).json({ data: message });
       } catch (e) {
-        res.status(400).json({ message: e.message });
+        res.status(400).json({ data: e.message });
       }
     });
 

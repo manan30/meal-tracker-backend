@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { User } from './user.interface';
+import { User, Recipe } from './user.interface';
 
 const UserSchema = new Schema(
   {
@@ -8,10 +8,10 @@ const UserSchema = new Schema(
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     recipes: Array,
-    followers: Number,
-    following: Number,
-    saved: Number,
-    likes: Number
+    followers: { type: Number, default: 0 },
+    following: { type: Number, default: 0 },
+    saved: { type: Number, default: 0 },
+    likes: { type: Number, default: 0 }
   },
   { timestamps: true }
 );

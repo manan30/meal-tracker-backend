@@ -1,23 +1,29 @@
-import { ResponseStatus } from '../../interfaces/response.interface';
+import { Response } from '../../interfaces/response.interface';
 import { encrypt } from '../../utils/PasswordUtils';
+import Status from '../../utils/ResponseStatus';
+import {
+  ACCOUNT_CREATED,
+  SERVER_ERROR,
+  USER_EXISTS
+} from '../../utils/ServerMessages';
 import { User } from './user.interface';
 import UserModel from './user.model';
-import Response from '../../utils/ResponseStatus';
 
 class UserController {
-  public async createUser(body: User): Promise<ResponseStatus> {
+  public async createUser(body: User): Promise<Response> {
     try {
       const user = await UserModel.findOne({ email: body.email });
       if (user) {
-        return new Response(false, 'User already exists ');
+        return new Status(false, USER_EXISTS);
       }
       const newUser = new UserModel(body);
       const encryptedPassword = await encrypt(body.password);
       newUser.password = encryptedPassword;
-      await newUser.save();
-      return new Response(true, 'Account created successfully');
+      const createdUser = JSON.parse(JSON.stringify(await newUser.save()));
+      delete createdUser.password;
+      return new Status(true, ACCOUNT_CREATED, createdUser);
     } catch (err) {
-      return new Response(false, `Internal server error: ${err}`);
+      return new Status(false, SERVER_ERROR(err));
     }
   }
 }
