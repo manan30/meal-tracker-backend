@@ -3,10 +3,10 @@ import dotenv from 'dotenv';
 import helmet from 'helmet';
 import App from './app';
 import UserRouter from './components/user/user.routes';
-import DBConnection from './DBConnection';
 import { errorHandler } from './middleware/error.middleware';
 import { notFoundHandler } from './middleware/notFound.middleware';
 import { SERVER_PORT } from './utils/Constants';
+import DBConnection from './utils/DBConnection';
 
 dotenv.config();
 

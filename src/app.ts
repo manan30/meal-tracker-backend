@@ -1,9 +1,5 @@
-import express, { Application, Router } from 'express';
-
-export type RouteType = {
-  tag: string;
-  router: Router;
-};
+import express, { Application } from 'express';
+import { RouteType } from './interfaces/common.interface';
 
 class App {
   private app: Application;

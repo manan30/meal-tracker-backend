@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { DATABASE, DB_PORT, DB_URL } from './utils/Constants';
+import { DATABASE, DB_PORT, DB_URL } from './Constants';
 
 export default async function connection(): Promise<any> {
   try {
