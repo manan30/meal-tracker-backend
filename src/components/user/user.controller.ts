@@ -17,11 +17,14 @@ class UserController {
         return new Status(false, USER_EXISTS);
       }
       const newUser = new UserModel(body);
+      const token = newUser.generateAuthToken();
       const encryptedPassword = await encrypt(body.password);
       newUser.password = encryptedPassword;
-      const createdUser = JSON.parse(JSON.stringify(await newUser.save()));
+      newUser.tokens.accessToken = token;
+      let createdUser = await newUser.save();
+      createdUser = JSON.parse(JSON.stringify(createdUser));
       delete createdUser.password;
-      return new Status(true, ACCOUNT_CREATED, createdUser);
+      return new Status(true, ACCOUNT_CREATED, { createdUser, token });
     } catch (err) {
       return new Status(false, SERVER_ERROR(err));
     }

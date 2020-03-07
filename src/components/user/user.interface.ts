@@ -1,5 +1,9 @@
 import { Document } from 'mongoose';
 
+export interface tokens {
+  accessToken: String;
+}
+
 export interface Recipe {
   id: number;
   recipeName: string;
@@ -19,4 +23,6 @@ export interface User extends Document {
   following: number;
   saved: number;
   likes: number;
+  tokens: tokens;
+  generateAuthToken: Function;
 }

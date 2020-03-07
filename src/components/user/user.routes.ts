@@ -18,8 +18,14 @@ class UserRoutes {
           specificData
         } = await UserController.createUser(body);
 
-        if (status) res.status(200).json({ data: specificData || {} });
-        else res.status(400).json({ data: message });
+        if (status) {
+          const { createdUser, token } = specificData;
+          delete createdUser.tokens.accessToken;
+          res
+            .status(200)
+            .header('x-auth-token', token)
+            .json({ data: { createdUser, accessToken: token } || {} });
+        } else res.status(400).json({ data: message });
       } catch (e) {
         res.status(400).json({ data: e.message });
       }

@@ -1,7 +1,8 @@
 import mongoose, { Schema } from 'mongoose';
-import { User, Recipe } from './user.interface';
+import { User, tokens } from './user.interface';
+import jwt from 'jsonwebtoken';
 
-const UserSchema = new Schema(
+const UserSchema = new Schema<User>(
   {
     firstName: { type: String, required: true },
     lastName: String,
@@ -11,9 +12,19 @@ const UserSchema = new Schema(
     followers: { type: Number, default: 0 },
     following: { type: Number, default: 0 },
     saved: { type: Number, default: 0 },
-    likes: { type: Number, default: 0 }
+    likes: { type: Number, default: 0 },
+    tokens: { type: Object, default: {} }
   },
   { timestamps: true }
 );
+
+UserSchema.methods.generateAuthToken = function generateAuthToken() {
+  const token = jwt.sign(
+    { id: this._id, password: this.password },
+    process.env.PASSPORT_SECRET || '',
+    { expiresIn: '7 days' }
+  );
+  return token;
+};
 
 export default mongoose.model<User>('User', UserSchema);

@@ -1,7 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 import chalk from 'chalk';
 
-export function Logger(req: Request, res: Response, next: NextFunction): void {
+export function logHandler(
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void {
   const currentDate = new Date();
   const formattedDate = `${currentDate.getFullYear()}-${currentDate.getMonth() +
     1}-${currentDate.getDate()} ${currentDate.getHours()}:${currentDate.getMinutes()}:${currentDate.getSeconds()}`;
