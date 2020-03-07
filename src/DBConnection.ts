@@ -6,9 +6,8 @@ export default async function connection(): Promise<any> {
     await mongoose.connect(`mongodb://${DB_URL}:${DB_PORT}/${DATABASE}`, {
       useNewUrlParser: true,
       useCreateIndex: true,
-      reconnectTries: Number.MAX_VALUE,
-      reconnectInterval: 500,
-      connectTimeoutMS: 10000
+      connectTimeoutMS: 10000,
+      useUnifiedTopology: true
     });
     console.log('Database connection successful.');
   } catch (e) {

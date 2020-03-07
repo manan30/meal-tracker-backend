@@ -11,12 +11,13 @@ class App {
 
   constructor(init: { port: number; middleWares: any; routes: RouteType[] }) {
     this.app = express();
-    this.port = init.port;
-    this.middleWares(init.middleWares);
-    this.routes(init.routes);
-
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
+
+    this.port = init.port;
+
+    this.middleWares(init.middleWares);
+    this.routes(init.routes);
   }
 
   private middleWares(middleWares: {
