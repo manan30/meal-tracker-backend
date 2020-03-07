@@ -7,6 +7,7 @@ import { errorHandler } from './middleware/error.middleware';
 import { notFoundHandler } from './middleware/notFound.middleware';
 import { SERVER_PORT } from './utils/Constants';
 import DBConnection from './utils/DBConnection';
+import { Logger } from './middleware/logging.middleware';
 
 dotenv.config();
 
@@ -14,7 +15,7 @@ DBConnection();
 
 const app = new App({
   port: SERVER_PORT,
-  middleWares: [cors(), helmet(), errorHandler, notFoundHandler],
+  middleWares: [cors(), helmet(), errorHandler, notFoundHandler, Logger],
   routes: [{ tag: '/user', router: UserRouter }]
 });
 
