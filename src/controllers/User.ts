@@ -11,10 +11,18 @@ class UserController {
 
   public async createUser(body: any) {
     let data: UserDocument | Error;
-    const encryptedPassword = await encrypt(body.password);
 
     try {
-      data = await UserModel.create({ ...body, password: encryptedPassword });
+      let user = await UserModel.findOne({ email: body.email });
+      if (user) {
+        return { status: false, message: 'User already exists' };
+      }
+      const encryptedPassword = await encrypt(body.password);
+      user = new UserModel({
+        ...body,
+        password: encryptedPassword
+      });
+      data = await user.save();
     } catch (err) {
       data = err;
     }

@@ -1,13 +1,13 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
-export interface Recipe {
+export type Recipe = {
   id: number;
   recipeName: string;
   recipeDescription: string;
   recipeImage: string;
   timeToCook: number;
   ingredients: number;
-}
+};
 
 export type UserDocument = Document & {
   firstName: string;

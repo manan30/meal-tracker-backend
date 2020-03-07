@@ -21,7 +21,7 @@ class App {
 
   private middleWares(middleWares: {
     forEach: (arg0: (middleware: any) => void) => void;
-  }) {
+  }): void {
     middleWares.forEach(middleware => {
       this.app.use(middleware);
     });
@@ -33,7 +33,7 @@ class App {
     });
   }
 
-  public listen() {
+  public listen(): void {
     this.app.listen(this.port, () => {
       console.log(`Server running on ${this.port}`);
     });
