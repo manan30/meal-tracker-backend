@@ -13,11 +13,6 @@ export function authenticationHandler(
     return res.status(401).json({ message: NOT_AUTHORIZED });
   }
   try {
-    const decoded = jwt.verify(
-      token instanceof Array ? token[0] : token,
-      process.env.PASSPORT_SECRET || ''
-    );
-    req.body = { ...req.body, decoded };
     next();
   } catch (e) {
     res.status(400).json({ message: INVALID_TOKEN });

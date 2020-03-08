@@ -5,7 +5,10 @@ export async function encrypt(password: string): Promise<string> {
   return encryptedPassword;
 }
 
-// export async function decrypt(encryptedPassword: string) {
-//   // const password = bcrypt.
-//   return '';
-// }
+export async function comparePassword(
+  password: string,
+  encryptedPassword: string
+): Promise<boolean> {
+  const match = await bcrypt.compare(password, encryptedPassword);
+  return match;
+}

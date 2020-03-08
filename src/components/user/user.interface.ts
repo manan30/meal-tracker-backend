@@ -1,7 +1,7 @@
 import { Document } from 'mongoose';
 
 export interface tokens {
-  accessToken: String;
+  accessToken: string;
 }
 
 export interface Recipe {
