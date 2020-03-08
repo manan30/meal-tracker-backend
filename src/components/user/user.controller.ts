@@ -16,7 +16,7 @@ class UserController {
   public async createUser(body: User): Promise<Response> {
     try {
       const user = await UserModel.findOne({ email: body.email });
-      if (!user) {
+      if (user) {
         return new Status(false, USER_EXISTS);
       }
       const newUser = new UserModel(body);
@@ -29,7 +29,7 @@ class UserController {
       createdUser = JSON.parse(JSON.stringify(createdUser));
       delete createdUser.password;
 
-      return new Status(true, ACCOUNT_CREATED, { createdUser, token });
+      return new Status(true, ACCOUNT_CREATED, { user: createdUser, token });
     } catch (err) {
       return new Status(false, SERVER_ERROR(err));
     }

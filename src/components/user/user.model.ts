@@ -20,7 +20,7 @@ const UserSchema = new Schema<User>(
 
 UserSchema.methods.generateAuthToken = function generateAuthToken() {
   const token = jwt.sign(
-    { id: this._id, password: this.password },
+    { id: this._id, name: this.firstName },
     process.env.PASSPORT_SECRET || '',
     { expiresIn: '7 days' }
   );
