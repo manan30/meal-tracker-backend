@@ -7,6 +7,11 @@ on:
     types:
       - opened
       - edited
+  pull_request_review:
+    branches:
+      - develop
+    types:
+      - edited
 
 jobs:
   build-and-deploy:
