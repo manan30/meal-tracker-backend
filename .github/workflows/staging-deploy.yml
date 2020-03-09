@@ -1,3 +1,4 @@
+#TODO: Checkout the PR branch after cloning
 name: Build and Deploy - Staging
 
 on:
