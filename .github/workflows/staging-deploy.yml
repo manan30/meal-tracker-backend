@@ -36,7 +36,6 @@ jobs:
       - name: Deploy
         run: |
           ssh -i $HOME/.ssh/id_rsa ${USER}@${HOST} < scripts/pull-run.sh
-          # ls -al
         env:
           USER: ${{ secrets.USER }}
           HOST: ${{ secrets.HOST }}

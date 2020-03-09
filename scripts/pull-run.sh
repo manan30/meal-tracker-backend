@@ -1,6 +1,7 @@
 cd $HOME/projects
 git clone git@github.com:manan30/meal-tracker-backend.git
 cd meal-tracker-backend
-docker-compose --detach --env-file $HOME/.env up
+cp $HOME/.env .
+docker-compose up -d --build app
 cd ..
-# rm -rfd meal-tracker-backend
+rm -rfd meal-tracker-backend
