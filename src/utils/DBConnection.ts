@@ -1,17 +1,16 @@
-const mongoose = require('mongoose');
-const { DB_URL, DB_PORT, DATABASE } = require('./utils/Constants');
+import mongoose from 'mongoose';
+import { DATABASE, DB_PORT, DB_URL } from './Constants';
 
-module.exports = async () => {
+export default async function connection(): Promise<any> {
   try {
     await mongoose.connect(`mongodb://${DB_URL}:${DB_PORT}/${DATABASE}`, {
       useNewUrlParser: true,
       useCreateIndex: true,
-      reconnectTries: Number.MAX_VALUE,
-      reconnectInterval: 500,
-      connectTimeoutMS: 10000
+      connectTimeoutMS: 10000,
+      useUnifiedTopology: true
     });
     console.log('Database connection successful.');
   } catch (e) {
     console.log('Database connection failed.', e);
   }
-};
+}
