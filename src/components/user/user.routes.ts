@@ -14,6 +14,7 @@ class UserRoutes {
         const body: User = req.body;
         const {
           status,
+          code,
           message,
           specificData
         } = await UserController.createUser(body);
@@ -22,12 +23,12 @@ class UserRoutes {
           const { user, token } = specificData;
           delete user.tokens.accessToken;
           res
-            .status(200)
+            .status(code)
             .header('x-auth-token', token)
             .json({ data: { user, accessToken: token } || {} });
-        } else res.status(302).json({ data: [message] });
+        } else res.status(code).json({ data: [message] });
       } catch (e) {
-        res.status(400).json({ data: e.message });
+        res.status(500).json({ data: e.message });
       }
     });
 
@@ -40,6 +41,7 @@ class UserRoutes {
 
         const {
           status,
+          code,
           message,
           specificData
         } = await UserController.loginUser(body);
@@ -49,12 +51,12 @@ class UserRoutes {
           delete user.tokens.accessToken;
           delete user.password;
           res
-            .status(200)
-            .header('x-auth-token', token)
+            .status(code)
+            .header('authorization', token)
             .json({ data: { user, accessToken: token } || {} });
-        } else res.status(400).json({ data: message });
+        } else res.status(code).json({ data: message });
       } catch (e) {
-        res.status(400).json({ data: e.message });
+        res.status(500).json({ data: e.message });
       }
     });
 

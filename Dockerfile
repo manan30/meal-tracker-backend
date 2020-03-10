@@ -4,7 +4,7 @@ WORKDIR /usr/src/sculptor-backend
 
 COPY package*.json ./
 
-RUN npm install
+RUN npm install --silent
 
 COPY . .
 
