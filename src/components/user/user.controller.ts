@@ -17,7 +17,7 @@ class UserController {
     try {
       const user = await UserModel.findOne({ email: body.email });
       if (user) {
-        return new Status(false, 302, USER_EXISTS);
+        return new Status(false, 400, USER_EXISTS);
       }
       const newUser = new UserModel(body);
       const token = newUser.generateAuthToken();
@@ -43,7 +43,7 @@ class UserController {
       const user = await UserModel.findOne({ email: body.email });
 
       if (!user) {
-        return new Status(false, 204, USER_NOT_FOUND);
+        return new Status(false, 400, USER_NOT_FOUND);
       }
 
       let token: string;
