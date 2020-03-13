@@ -1,13 +1,13 @@
 import { Response } from '../../interfaces/response.interface';
-import { encrypt, comparePassword } from '../../utils/PasswordUtils';
+import { comparePassword, encrypt } from '../../utils/PasswordUtils';
 import Status from '../../utils/ResponseStatus';
 import {
   ACCOUNT_CREATED,
+  LOGIN_FAILED,
+  LOGIN_SUCCESSFUL,
   SERVER_ERROR,
   USER_EXISTS,
-  USER_NOT_FOUND,
-  LOGIN_SUCCESSFUL,
-  LOGIN_FAILED
+  USER_NOT_FOUND
 } from '../../utils/ServerMessages';
 import { User } from './user.interface';
 import UserModel from './user.model';
@@ -17,7 +17,7 @@ class UserController {
     try {
       const user = await UserModel.findOne({ email: body.email });
       if (user) {
-        return new Status(false, USER_EXISTS);
+        return new Status(false, 302, USER_EXISTS);
       }
       const newUser = new UserModel(body);
       const token = newUser.generateAuthToken();
@@ -29,9 +29,12 @@ class UserController {
       createdUser = JSON.parse(JSON.stringify(createdUser));
       delete createdUser.password;
 
-      return new Status(true, ACCOUNT_CREATED, { user: createdUser, token });
+      return new Status(true, 200, ACCOUNT_CREATED, {
+        user: createdUser,
+        token
+      });
     } catch (err) {
-      return new Status(false, SERVER_ERROR(err));
+      return new Status(false, 500, SERVER_ERROR(err));
     }
   }
 
@@ -40,12 +43,12 @@ class UserController {
       const user = await UserModel.findOne({ email: body.email });
 
       if (!user) {
-        return new Status(false, USER_NOT_FOUND);
+        return new Status(false, 204, USER_NOT_FOUND);
       }
 
       let token: string;
 
-      const passwordMatch = comparePassword(body.password, user.password);
+      const passwordMatch = await comparePassword(body.password, user.password);
 
       if (passwordMatch) {
         if (!user.tokens.accessToken) {
@@ -56,15 +59,15 @@ class UserController {
           token = user.tokens.accessToken;
         }
         const loggedInUser = JSON.parse(JSON.stringify(user));
-        return new Status(true, LOGIN_SUCCESSFUL, {
+        return new Status(true, 200, LOGIN_SUCCESSFUL, {
           user: loggedInUser,
           token
         });
       } else {
-        return new Status(false, LOGIN_FAILED);
+        return new Status(false, 400, LOGIN_FAILED);
       }
     } catch (err) {
-      return new Status(false, SERVER_ERROR(err));
+      return new Status(false, 500, SERVER_ERROR(err));
     }
   }
 }
