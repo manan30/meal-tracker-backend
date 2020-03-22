@@ -77,7 +77,7 @@ const generateTopRecipes = () => {
   return topRecipes;
 };
 
-const generateFeedRecipes = () => {
+const generateFeedRecipes = options => {
   const user = () => {
     return {
       id: faker.random.number(),
@@ -92,13 +92,13 @@ const generateFeedRecipes = () => {
       id: faker.random.number(),
       recipeImage: faker.random.image(),
       recipeName: faker.commerce.productName(),
-      recipeDesc: faker.lorem.lines(2),
+      recipeDesc: faker.lorem.lines(4),
       likes: faker.random.number(),
       comments: faker.random.number()
     };
   };
 
-  const recipes = new Array(15).fill(0).map(() => {
+  const recipes = new Array((options && 100) || 15).fill(0).map(() => {
     return { user: user(), recipe: recipe() };
   });
 
@@ -113,11 +113,12 @@ module.exports = () => {
 
   const topRecipes = generateTopRecipes();
   const feedRecipes = generateFeedRecipes();
+  const recipes = generateFeedRecipes('feed');
 
   const feed = { topRecipes, feedRecipes };
   // const data = { recipes, categories, images, recipe };
 
-  const data = { feed };
+  const data = { feed, recipes };
 
   return data;
 };
