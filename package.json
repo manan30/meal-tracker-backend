@@ -4,11 +4,11 @@
   "description": "Node backend for the meal tracker app ",
   "main": "dist/server.js",
   "scripts": {
-    "start": "npm run dev",
+    "start": "mv .env .env.test && npm run dev",
     "dev": "npx ts-node src/server.ts",
     "build": "tsc --build tsconfig.json",
     "prod": "node dist/server.js",
-    "docker": "docker-compose up -d --build app ",
+    "docker": "mv .env.test .env docker-compose up -d --build app ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
