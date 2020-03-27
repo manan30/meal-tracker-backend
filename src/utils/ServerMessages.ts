@@ -2,7 +2,7 @@ const USER_EXISTS = 'User already exists';
 
 const USER_NOT_FOUND = 'User does not exist';
 
-const SERVER_ERROR = (err: Error) => `Internal server error: ${err}`;
+const SERVER_ERROR = (err: Error): string => `Internal server error: ${err}`;
 
 const ACCOUNT_CREATED = 'Account created successfully';
 

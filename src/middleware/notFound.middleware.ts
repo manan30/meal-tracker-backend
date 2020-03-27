@@ -1,13 +1,12 @@
+import { Request, Response } from 'express';
 import HttpException from '../utils/HttpException';
-import { Request, Response, NextFunction, response } from 'express';
 
-export function notFoundHandler(
+export default function notFoundHandler(
   error: HttpException,
   req: Request,
-  res: Response,
-  next: NextFunction
-) {
+  res: Response
+): void {
   const message = 'Resource not found';
 
-  response.status(404).send(message);
+  res.status(404).send(message);
 }

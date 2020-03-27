@@ -1,7 +1,10 @@
 export default class ResponseStatus {
   status: boolean;
+
   code: number;
+
   message: string;
+
   specificData?: any;
 
   constructor(
