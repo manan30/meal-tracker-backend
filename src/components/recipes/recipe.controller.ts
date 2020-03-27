@@ -4,6 +4,7 @@ import Status from '../../utils/ResponseStatus';
 import { RECIPE_POSTED, SERVER_ERROR } from '../../utils/ServerMessages';
 import { Recipe } from './recipe.interface';
 import RecipeModel from './recipe.model';
+import UserModel from '../user/user.model';
 
 class RecipeController {
   status!: Status;
@@ -29,13 +30,15 @@ class RecipeController {
   ): Promise<Response> {
     try {
       const { recipeCreatedByUserID } = body;
-      const newRecipe = new RecipeModel(body);
+      const newRecipe = new RecipeModel({
+        ...body,
+        _recipeCreatedByUserID: recipeCreatedByUserID
+      });
       await newRecipe.save();
-      // const user = await UserModel.findById(_recipeCreatedByUserID);
-      // user?.recipes.push(savedRecipe);
-      // await user?.save();
-
-      this.status = new Status(true, 200, RECIPE_POSTED, {});
+      await UserModel.findByIdAndUpdate(recipeCreatedByUserID, {
+        $push: { recipes: newRecipe }
+      });
+      this.status = new Status(true, 200, RECIPE_POSTED, newRecipe);
       return this.status;
     } catch (err) {
       console.log(err);

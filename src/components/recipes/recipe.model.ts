@@ -8,7 +8,7 @@ const recipeSchema = new Schema<Recipe>(
     recipeDescription: { type: String, required: true },
     recipeLikes: { type: Number, default: 0 },
     recipeComments: { type: Number, default: 0 },
-    _recipeCreatedByUserID: {
+    recipeCreatedByUserID: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'
     }

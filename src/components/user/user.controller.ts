@@ -42,9 +42,7 @@ class UserController {
 
   public async loginUser(body: User): Promise<Response> {
     try {
-      this.user = await UserModel.findOne({ email: body.email }).populate(
-        'recipes'
-      );
+      this.user = await UserModel.findOne({ email: body.email });
 
       if (!this.user) {
         return new Status(false, 400, USER_NOT_FOUND);
@@ -65,6 +63,8 @@ class UserController {
         } else {
           token = this.user.tokens.accessToken;
         }
+
+        this.user.populate('recipes').populate('saved');
 
         return new Status(true, 200, LOGIN_SUCCESSFUL, {
           user: this.user,
