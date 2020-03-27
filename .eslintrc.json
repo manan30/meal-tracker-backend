@@ -4,11 +4,16 @@
     "es6": true,
     "node": true
   },
+  // "extends": [
+  //   "eslint:recommended",
+  //
   "extends": [
+    "airbnb-typescript/base",
+    "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "plugin:airbnb-base",
-    "plugin:prettier/recommended"
+    "prettier",
+    "prettier/@typescript-eslint"
   ],
   "ignorePatterns": ["dist /**/*"],
   "globals": {
@@ -21,8 +26,9 @@
     "project": "tsconfig.json",
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint", "@typescript-eslint/tslint", "prettier"],
+  "plugins": ["@typescript-eslint", "prettier"],
   "rules": {
-    "no-console": "off"
+    "no-console": "off",
+    "no-underscore-dangle": "off"
   }
 }

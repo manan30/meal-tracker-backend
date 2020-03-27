@@ -1,6 +1,6 @@
-import mongoose, { Schema } from 'mongoose';
-import { User, tokens } from './user.interface';
 import jwt from 'jsonwebtoken';
+import mongoose, { Schema } from 'mongoose';
+import { User } from './user.interface';
 
 const UserSchema = new Schema<User>(
   {
@@ -19,7 +19,7 @@ const UserSchema = new Schema<User>(
   { timestamps: true }
 );
 
-UserSchema.methods.generateAuthToken = function generateAuthToken() {
+UserSchema.methods.generateAuthToken = function generateAuthToken(): string {
   const token = jwt.sign(
     { id: this._id, name: this.firstName },
     process.env.PASSPORT_SECRET || 'testing_token',
