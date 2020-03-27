@@ -1,17 +1,9 @@
 import { Document } from 'mongoose';
+import { Recipe } from '../recipes/recipe.interface';
 
-export interface tokens {
+export type tokens = {
   accessToken: string;
-}
-
-export interface Recipe {
-  id: number;
-  recipeName: string;
-  recipeDescription: string;
-  recipeImage: string;
-  timeToCook: number;
-  ingredients: number;
-}
+};
 
 export interface User extends Document {
   firstName: string;

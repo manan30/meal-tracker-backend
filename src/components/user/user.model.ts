@@ -11,9 +11,10 @@ const UserSchema = new Schema<User>(
     recipesCount: { type: Number, default: 0 },
     followers: { type: Number, default: 0 },
     following: { type: Number, default: 0 },
-    saved: { type: Number, default: 0 },
+    saved: { type: Array, ref: 'Recipe' },
     likes: { type: Number, default: 0 },
-    tokens: { type: Object, default: {} }
+    tokens: { type: Object, default: {} },
+    recipes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Recipe' }]
   },
   { timestamps: true }
 );
@@ -21,7 +22,7 @@ const UserSchema = new Schema<User>(
 UserSchema.methods.generateAuthToken = function generateAuthToken() {
   const token = jwt.sign(
     { id: this._id, name: this.firstName },
-    process.env.PASSPORT_SECRET || '',
+    process.env.PASSPORT_SECRET || 'testing_token',
     { expiresIn: '7 days' }
   );
   return token;

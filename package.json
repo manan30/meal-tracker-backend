@@ -4,7 +4,7 @@
   "description": "Node backend for the meal tracker app ",
   "main": "dist/server.js",
   "scripts": {
-    "start": "mv .env .env.test && npm run dev",
+    "start": "if [[ -f .env ]]; then mv .env .env.test; fi && npm run dev",
     "dev": "npx ts-node src/server.ts",
     "build": "tsc --build tsconfig.json",
     "prod": "node dist/server.js",
