@@ -3,10 +3,10 @@ import RecipeController from './recipe.controller';
 import { Recipe } from './recipe.interface';
 
 class RecipeRouter {
-  public getRoutes() {
-    const router = Router();
+  router: Router = Router();
 
-    router.post('/create', async function postRecipe(
+  public getRoutes(): Router {
+    this.router.post('/create', async function postRecipe(
       req: Request,
       res: Response
     ): Promise<void> {
@@ -27,7 +27,7 @@ class RecipeRouter {
       }
     });
 
-    return router;
+    return this.router;
   }
 }
 
