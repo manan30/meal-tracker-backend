@@ -1,6 +1,8 @@
 export default class HTTPException extends Error {
   statusCode: number;
+
   message: string;
+
   error: string | null;
 
   constructor(statusCode: number, message: string, error?: string) {

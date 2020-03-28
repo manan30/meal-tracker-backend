@@ -3,6 +3,7 @@ import { RouteType } from './interfaces/common.interface';
 
 class App {
   private app: Application;
+
   private port: number;
 
   constructor(init: { port: number; middleWares: any; routes: RouteType[] }) {

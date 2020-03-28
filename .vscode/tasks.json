@@ -5,7 +5,7 @@
   "tasks": [
     {
       "type": "npm",
-      "label": "node build",
+      "label": "build",
       "script": "build",
       "group": "build"
     },

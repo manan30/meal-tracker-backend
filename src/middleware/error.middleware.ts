@@ -1,15 +1,18 @@
+import { Request, Response, NextFunction } from 'express';
 import HttpException from '../utils/HttpException';
-import { Request, Response, NextFunction, response } from 'express';
 
-export function errorHandler(
+export default function errorHandler(
   error: HttpException,
   req: Request,
   res: Response,
-  next: NextFunction
-) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  _next: NextFunction
+): void {
   const status = error.statusCode || 500;
   const message =
     error.message || 'Internal server error. Please try again in some time';
 
-  response.status(status).send(message);
+  console.log({ status, message });
+
+  res.status(status).send(message);
 }

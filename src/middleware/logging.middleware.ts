@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import chalk from 'chalk';
 
-export function logHandler(
+export default function logHandler(
   req: Request,
   res: Response,
   next: NextFunction

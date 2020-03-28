@@ -1,6 +1,6 @@
-import mongoose, { Schema } from 'mongoose';
-import { User, tokens } from './user.interface';
 import jwt from 'jsonwebtoken';
+import mongoose, { Schema } from 'mongoose';
+import { User } from './user.interface';
 
 const UserSchema = new Schema<User>(
   {
@@ -8,20 +8,21 @@ const UserSchema = new Schema<User>(
     lastName: String,
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    recipes: Array,
+    recipesCount: { type: Number, default: 0 },
     followers: { type: Number, default: 0 },
     following: { type: Number, default: 0 },
-    saved: { type: Number, default: 0 },
+    saved: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Recipe' }],
     likes: { type: Number, default: 0 },
-    tokens: { type: Object, default: {} }
+    tokens: { type: Object, default: {} },
+    recipes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Recipe' }]
   },
   { timestamps: true }
 );
 
-UserSchema.methods.generateAuthToken = function generateAuthToken() {
+UserSchema.methods.generateAuthToken = function generateAuthToken(): string {
   const token = jwt.sign(
     { id: this._id, name: this.firstName },
-    process.env.PASSPORT_SECRET || '',
+    process.env.PASSPORT_SECRET || 'testing_token',
     { expiresIn: '7 days' }
   );
   return token;

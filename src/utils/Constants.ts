@@ -5,7 +5,7 @@ const SERVER_PORT: number = parseInt(
 
 const DB_URL: string = process.env.DB_URL || '127.0.0.1';
 
-const DB_PORT: number = parseInt(process.env.DB_PORT as string) || 27017;
+const DB_PORT: number = parseInt(process.env.DB_PORT as string, 10) || 27017;
 
 const DATABASE: string = process.env.DATABASE || 'sculptor';
 

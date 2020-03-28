@@ -1,17 +1,16 @@
-import { Router, Request, Response } from 'express';
+import { Request, Response, Router } from 'express';
 import UserController from './user.controller';
-import { User } from './user.interface';
 
 class UserRoutes {
-  public getRoutes(): Router {
-    const router = Router();
+  router: Router = Router();
 
-    router.post('/create', async function createUser(
+  public getRoutes(): Router {
+    this.router.post('/create', async function createUser(
       req: Request,
       res: Response
     ): Promise<void> {
       try {
-        const body: User = req.body;
+        const { body } = req;
         const {
           status,
           code,
@@ -32,12 +31,12 @@ class UserRoutes {
       }
     });
 
-    router.post('/login', async function loginUser(
+    this.router.post('/login', async function loginUser(
       req: Request,
       res: Response
     ): Promise<void> {
       try {
-        const body: User = req.body;
+        const { body } = req;
 
         const {
           status,
@@ -52,7 +51,7 @@ class UserRoutes {
           delete user.password;
           res
             .status(code)
-            .header('authorization', token)
+            .header('x-auth-token', token)
             .json({ data: { user, accessToken: token } || {} });
         } else res.status(code).json({ data: message });
       } catch (e) {
@@ -60,7 +59,7 @@ class UserRoutes {
       }
     });
 
-    return router;
+    return this.router;
   }
 }
 

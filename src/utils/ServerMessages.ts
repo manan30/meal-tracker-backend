@@ -2,7 +2,7 @@ const USER_EXISTS = 'User already exists';
 
 const USER_NOT_FOUND = 'User does not exist';
 
-const SERVER_ERROR = (err: Error) => `Internal server error: ${err}`;
+const SERVER_ERROR = (err: Error): string => `Internal server error: ${err}`;
 
 const ACCOUNT_CREATED = 'Account created successfully';
 
@@ -14,6 +14,8 @@ const NOT_AUTHORIZED = 'You are not authorized to perform this operation';
 
 const INVALID_TOKEN = 'Invalid token';
 
+const RECIPE_POSTED = 'Recipe posted successfully';
+
 export {
   USER_EXISTS,
   USER_NOT_FOUND,
@@ -22,5 +24,6 @@ export {
   NOT_AUTHORIZED,
   INVALID_TOKEN,
   LOGIN_SUCCESSFUL,
-  LOGIN_FAILED
+  LOGIN_FAILED,
+  RECIPE_POSTED
 };

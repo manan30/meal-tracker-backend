@@ -13,10 +13,12 @@ import { User } from './user.interface';
 import UserModel from './user.model';
 
 class UserController {
+  user: User | null | undefined;
+
   public async createUser(body: User): Promise<Response> {
     try {
-      const user = await UserModel.findOne({ email: body.email });
-      if (user) {
+      this.user = await UserModel.findOne({ email: body.email });
+      if (this.user) {
         return new Status(false, 400, USER_EXISTS);
       }
       const newUser = new UserModel(body);
@@ -40,32 +42,36 @@ class UserController {
 
   public async loginUser(body: User): Promise<Response> {
     try {
-      const user = await UserModel.findOne({ email: body.email });
+      this.user = await UserModel.findOne({ email: body.email });
 
-      if (!user) {
+      if (!this.user) {
         return new Status(false, 400, USER_NOT_FOUND);
       }
 
       let token: string;
 
-      const passwordMatch = await comparePassword(body.password, user.password);
+      const passwordMatch = await comparePassword(
+        body.password,
+        this.user.password
+      );
 
       if (passwordMatch) {
-        if (!user.tokens.accessToken) {
-          token = user.generateAuthToken();
-          user.tokens.accessToken = token;
-          await user.save();
+        if (!this.user.tokens.accessToken) {
+          token = this.user.generateAuthToken();
+          this.user.tokens.accessToken = token;
+          await this.user.save();
         } else {
-          token = user.tokens.accessToken;
+          token = this.user.tokens.accessToken;
         }
-        const loggedInUser = JSON.parse(JSON.stringify(user));
+
+        this.user.populate('recipes').populate('saved');
+
         return new Status(true, 200, LOGIN_SUCCESSFUL, {
-          user: loggedInUser,
+          user: this.user,
           token
         });
-      } else {
-        return new Status(false, 400, LOGIN_FAILED);
       }
+      return new Status(false, 400, LOGIN_FAILED);
     } catch (err) {
       return new Status(false, 500, SERVER_ERROR(err));
     }

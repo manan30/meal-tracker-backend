@@ -1,7 +1,3 @@
-import { NextFunction, Request, Response } from 'express';
-import { NOT_AUTHORIZED, INVALID_TOKEN } from '../utils/ServerMessages';
-import jwt from 'jsonwebtoken';
-
 // export function authenticationHandler(
 //   req: Request,
 //   res: Response,
