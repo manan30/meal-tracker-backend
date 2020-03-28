@@ -18,4 +18,5 @@ export type PaginationObject<T> = {
     limit: number;
   };
   totalRecords: number;
+  hasMore: boolean;
 };

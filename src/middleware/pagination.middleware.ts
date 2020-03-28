@@ -35,7 +35,8 @@ export default function paginationMiddleware(
 
       const paginatedData: PaginationObject<Document> = {
         results,
-        totalRecords: documentCount
+        totalRecords: documentCount,
+        hasMore: documentCount > page * limit
       };
 
       if (startIndex > 0) {
