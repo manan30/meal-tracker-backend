@@ -3,7 +3,6 @@ import { Document, Model } from 'mongoose';
 import { PaginationObject } from '../interfaces/common.interface';
 
 export default function paginationMiddleware(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   model: Model<Document>,
   population: { populationField: string; selectionField: string }[],
   findCriteria?: {}
