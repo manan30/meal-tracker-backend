@@ -15,9 +15,9 @@ class FeedRoutes {
         }
       ]),
       function getAllRecipes(req: Request, res: Response): void {
-        const x = res.paginatedData;
+        const { paginatedData } = res;
         try {
-          res.status(200).json({ data: x || {} });
+          res.status(200).json({ data: paginatedData || {} });
         } catch (err) {
           res.status(500).json({ data: [err.message] });
         }

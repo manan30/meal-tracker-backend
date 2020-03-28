@@ -21,19 +21,22 @@ export default function paginationMiddleware(
       const endIndex = page * limit;
       const documentCount = await model.countDocuments();
 
-      const queryModelBuilder = model.find(findCriteria || {});
+      const modelQueryBuilder = model.find(findCriteria || {});
 
       population.forEach(
         ({ populationField: populate, selectionField: selection }) => {
           if (populate.length > 0)
-            queryModelBuilder.populate(populate, selection || '');
+            modelQueryBuilder.populate(populate, selection || '');
         }
       );
 
-      const results = await queryModelBuilder.exec();
+      modelQueryBuilder.limit(limit).skip(startIndex);
+
+      const results = await modelQueryBuilder.exec();
 
       const paginatedData: PaginationObject<Document> = {
-        results
+        results,
+        totalRecords: documentCount
       };
 
       if (startIndex > 0) {

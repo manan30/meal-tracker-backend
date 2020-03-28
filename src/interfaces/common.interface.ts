@@ -17,4 +17,5 @@ export type PaginationObject<T> = {
     page: number;
     limit: number;
   };
+  totalRecords: number;
 };
