@@ -9,9 +9,9 @@
       "request": "launch",
       "name": "Debug app",
       "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}/src/server.ts",
-      "outFiles": ["${workspaceFolder}/dist/**/*.js"],
-      "preLaunchTask": "Run dev"
+      "program": "${workspaceFolder}/dist/server.js",
+      "outFiles": ["${workspaceFolder}/**/*.js"],
+      "preLaunchTask": "build"
     }
   ]
 }
