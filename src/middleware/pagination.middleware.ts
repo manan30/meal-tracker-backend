@@ -2,10 +2,6 @@ import { NextFunction, Request, Response } from 'express';
 import { Document, Model } from 'mongoose';
 import { PaginationObject } from '../interfaces/common.interface';
 
-interface PaginatedResponse extends Response {
-  paginatedData: PaginationObject<Document>;
-}
-
 export default function paginationMiddleware(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   model: Model<Document>,
