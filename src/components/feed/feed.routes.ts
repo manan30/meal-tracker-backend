@@ -1,18 +1,31 @@
-import { Router, Request, Response } from 'express';
+import { Request, Response, Router } from 'express';
+import FeedController from './feed.controller';
 
 class FeedRoutes {
-  public getRoutes(): Router {
-    const router = Router();
+  private router: Router = Router();
 
-    router.get('/recipes', async function getFeedRecipes(
+  public getRoutes(): Router {
+    this.router.get('/', async function getAllRecipes(
       req: Request,
       res: Response
-    ) {
+    ): Promise<void> {
       try {
-      } catch (e) {}
+        const {
+          code,
+          message,
+          status,
+          specificData
+        } = await FeedController.getAllRecipes(res);
+
+        if (status) {
+          res.status(code).json({ data: specificData || {} });
+        } else res.status(code).json({ data: message });
+      } catch (err) {
+        res.status(500).json({ data: [err.message] });
+      }
     });
 
-    return router;
+    return this.router;
   }
 }
 

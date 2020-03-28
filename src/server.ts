@@ -1,8 +1,9 @@
 import cors from 'cors';
 import helmet from 'helmet';
 import App from './app';
-import UserRouter from './components/user/user.routes';
+import FeedRouter from './components/feed/feed.routes';
 import RecipeRouter from './components/recipes/recipe.routes';
+import UserRouter from './components/user/user.routes';
 import ErrorHandler from './middleware/error.middleware';
 import LoggingHandler from './middleware/logging.middleware';
 import NotFoundHandler from './middleware/notFound.middleware';
@@ -25,7 +26,8 @@ const app = new App({
   ],
   routes: [
     { tag: '/user', router: UserRouter },
-    { tag: '/recipe', router: RecipeRouter }
+    { tag: '/recipe', router: RecipeRouter },
+    { tag: '/feed', router: FeedRouter }
   ]
 });
 
